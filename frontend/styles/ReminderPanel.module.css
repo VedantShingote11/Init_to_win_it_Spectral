@@ -1,0 +1,131 @@
+.container {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 2rem;
+}
+
+.reminderList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reminderCard {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.reminderCard.high {
+    background: #fee2e2;
+    border-color: #dc2626;
+}
+
+.reminderCard.medium {
+    background: #fef3c7;
+    border-color: #f59e0b;
+}
+
+.reminderCard.low {
+    background: #dbeafe;
+    border-color: #3b82f6;
+}
+
+.reminderHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.reminderTopic {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.riskBadge {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.reminderStats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.statValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.reminderMessage {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #1e293b;
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.reviseButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.reviseButton:hover {
+    transform: translateY(-2px);
+}
+
+.loading {
+    text-align: center;
+    padding: 4rem;
+    color: #64748b;
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #64748b;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}

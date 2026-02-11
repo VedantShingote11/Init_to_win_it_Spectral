@@ -1,0 +1,126 @@
+.container {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.metricsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.metricCard {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.metricLabel {
+    font-size: 0.875rem;
+    opacity: 0.9;
+}
+
+.metricValue {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.metricValue.improving {
+    color: #dcfce7;
+}
+
+.metricValue.declining {
+    color: #fee2e2;
+}
+
+.metricValue.stable {
+    color: white;
+}
+
+.chartSection {
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+}
+
+.insightsSection {
+    margin-bottom: 2rem;
+}
+
+.insights {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    line-height: 1.8;
+    color: #1e293b;
+}
+
+.topicsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.topicsCard {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
+.topicsTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.topicList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.topicTagStrong {
+    padding: 0.5rem 1rem;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.topicTagWeak {
+    padding: 0.5rem 1rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.loading {
+    text-align: center;
+    padding: 4rem;
+    color: #64748b;
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #64748b;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}

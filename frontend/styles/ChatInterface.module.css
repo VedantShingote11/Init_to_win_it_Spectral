@@ -1,0 +1,132 @@
+.container {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.messagesContainer {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 80%;
+}
+
+.user {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.assistant {
+    background: #f1f5f9;
+    color: #1e293b;
+    align-self: flex-start;
+}
+
+.error {
+    background: #fee2e2;
+    color: #991b1b;
+    align-self: center;
+}
+
+.messageContent {
+    line-height: 1.6;
+}
+
+.sources {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.sourcesLabel {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.sourceTag {
+    padding: 0.25rem 0.75rem;
+    background: white;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #667eea;
+}
+
+.loading {
+    padding: 1rem;
+    text-align: center;
+    color: #64748b;
+    font-style: italic;
+}
+
+.inputForm {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.sendButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.sendButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.sendButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #64748b;
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
