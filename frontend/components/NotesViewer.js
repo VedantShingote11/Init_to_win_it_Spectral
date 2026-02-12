@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from '../styles/NotesViewer.module.css';
 import { learningAPI } from '../utils/api';
 
@@ -55,11 +56,30 @@ export default function NotesViewer({ projectId }) {
 
             <div className={styles.content}>
                 {loading ? (
-                    <div className={styles.loading}>Generating notes...</div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className={styles.loading}
+                    >
+                        <div className={styles.spinner}></div>
+                        <p>Analysing materials to generate notes...</p>
+                    </motion.div>
                 ) : notes ? (
-                    <div className={styles.notes}>
-                        <ReactMarkdown>{notes.content}</ReactMarkdown>
-                    </div>
+                    <motion.div
+                        key={notes.type}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className={styles.notesCard}
+                    >
+                        <div className={styles.notesHeader}>
+                            <h3>{notes.type === 'overview' ? 'Project Overview' : 'Smart Study Notes'}</h3>
+                            <span className={styles.dateBadge}>Generated just now</span>
+                        </div>
+                        <div className={styles.notesBody}>
+                            <ReactMarkdown>{notes.content}</ReactMarkdown>
+                        </div>
+                    </motion.div>
                 ) : (
                     <div className={styles.empty}>
                         <div className={styles.emptyIcon}>📝</div>

@@ -1,119 +1,193 @@
 .container {
     background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     height: 600px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
 }
 
 .messagesContainer {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 1rem;
+    padding: 2rem;
+    background: #f8fafc;
 }
 
 .messages {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 }
 
 .message {
-    padding: 1rem;
+    padding: 1.25rem;
     border-radius: 12px;
-    max-width: 80%;
+    max-width: 85%;
+    margin-bottom: 2rem;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .user {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: #f1f5f9;
+    color: #1e293b;
     align-self: flex-end;
     margin-left: auto;
+    border-bottom-right-radius: 2px;
 }
 
 .assistant {
-    background: #f1f5f9;
-    color: #1e293b;
+    background: #2563eb;
+    color: white;
     align-self: flex-start;
+    border-bottom-left-radius: 2px;
 }
 
 .error {
     background: #fee2e2;
     color: #991b1b;
     align-self: center;
+    border: 1px solid #fca5a5;
 }
 
 .messageContent {
     line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Markdown Styles inside messages */
+.messageContent p {
+    margin-bottom: 0.5rem;
+}
+
+.messageContent p:last-child {
+    margin-bottom: 0;
+}
+
+.assistant .messageContent a {
+    color: #bfdbfe;
+    text-decoration: underline;
+}
+
+.user .messageContent a {
+    color: #2563eb;
 }
 
 .sources {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     padding-top: 0.75rem;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
 }
 
+.user .sources {
+    display: none;
+}
+
+/* User messages don't have sources usually */
+
 .sourcesLabel {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #64748b;
+    opacity: 0.8;
 }
 
 .sourceTag {
-    padding: 0.25rem 0.75rem;
-    background: white;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    color: #667eea;
+    padding: 0.2rem 0.6rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: inherit;
 }
 
-.loading {
-    padding: 1rem;
-    text-align: center;
-    color: #64748b;
-    font-style: italic;
+.loadingDots {
+    display: flex;
+    gap: 4px;
+    padding: 0.5rem;
+}
+
+.loadingDots span {
+    animation: bounce 1.4s infinite ease-in-out both;
+    font-size: 1.5rem;
+    line-height: 10px;
+}
+
+.loadingDots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loadingDots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
 }
 
 .inputForm {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background: white;
+    border-top: 1px solid #e2e8f0;
 }
 
 .input {
     flex: 1;
-    padding: 0.75rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
     font-size: 1rem;
+    transition: all 0.2s;
+    background: #f8fafc;
 }
 
 .input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .sendButton {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0f172a;
     color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: transform 0.2s;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
 }
 
 .sendButton:hover:not(:disabled) {
+    background: #2563eb;
     transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
 }
 
 .sendButton:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background: #94a3b8;
 }
 
 .empty {
@@ -124,9 +198,11 @@
     height: 100%;
     text-align: center;
     color: #64748b;
+    opacity: 0.8;
 }
 
 .emptyIcon {
     font-size: 4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
 }

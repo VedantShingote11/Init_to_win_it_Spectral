@@ -4,7 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,49 +14,54 @@
 
 .modal {
     background: white;
-    border-radius: 16px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 2.5rem;
     max-width: 500px;
     width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .header h2 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+    margin: 0;
 }
 
 .closeButton {
     background: none;
-    font-size: 2rem;
-    color: #64748b;
+    font-size: 1.5rem;
+    color: #94a3b8;
     line-height: 1;
-    padding: 0;
-    width: 2rem;
-    height: 2rem;
+    padding: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
-    transition: background 0.2s;
+    border-radius: 50%;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
 }
 
 .closeButton:hover {
     background: #f1f5f9;
+    color: #ef4444;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
 .field {
@@ -66,7 +72,7 @@
 
 .label {
     font-weight: 600;
-    color: #1e293b;
+    color: #334155;
     font-size: 0.875rem;
 }
 
@@ -74,53 +80,67 @@
 .textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.2s;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background: #f8fafc;
+    color: #0f172a;
 }
 
 .input:focus,
 .textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #2563eb;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .textarea {
     resize: vertical;
     font-family: inherit;
+    min-height: 100px;
 }
 
 .actions {
     display: flex;
     gap: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
 
 .cancelButton {
     flex: 1;
-    background: #f1f5f9;
-    color: #475569;
-    padding: 0.75rem;
-    border-radius: 8px;
+    background: white;
+    color: #64748b;
+    padding: 0.875rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
     font-weight: 600;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 
 .cancelButton:hover {
-    background: #e2e8f0;
+    background: #f8fafc;
+    color: #0f172a;
+    border-color: #cbd5e1;
 }
 
 .createButton {
     flex: 1;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0f172a;
     color: white;
-    padding: 0.75rem;
-    border-radius: 8px;
+    padding: 0.875rem;
+    border-radius: 10px;
     font-weight: 600;
-    transition: transform 0.2s;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .createButton:hover {
-    transform: translateY(-2px);
+    background: #1e293b;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from '../styles/ReminderPanel.module.css';
 import { learningAPI } from '../utils/api';
 
@@ -38,51 +39,67 @@ export default function ReminderPanel({ projectId }) {
 
     if (reminders.length === 0) {
         return (
-            <div className={styles.empty}>
+            <motion.div
+                className={styles.empty}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+            >
                 <div className={styles.emptyIcon}>🎉</div>
                 <h3>All Caught Up!</h3>
                 <p>No topics need revision right now. Keep up the great work!</p>
-            </div>
+            </motion.div>
         );
     }
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Revision Reminders</h2>
-            <p className={styles.subtitle}>
-                These topics need your attention to maintain mastery
-            </p>
+            <div className={styles.header}>
+                <h2 className={styles.title}>Revision Reminders</h2>
+                <p className={styles.subtitle}>
+                    These topics need your attention to maintain mastery
+                </p>
+            </div>
 
             <div className={styles.reminderList}>
-                {reminders.map((reminder, idx) => (
-                    <div key={idx} className={`${styles.reminderCard} ${styles[reminder.risk_level]}`}>
-                        <div className={styles.reminderHeader}>
-                            <h3 className={styles.reminderTopic}>{reminder.topic}</h3>
-                            <span className={styles.riskBadge}>
-                                {reminder.risk_level.toUpperCase()} PRIORITY
-                            </span>
-                        </div>
-
-                        <div className={styles.reminderStats}>
-                            <div className={styles.stat}>
-                                <span className={styles.statLabel}>Mastery</span>
-                                <span className={styles.statValue}>{reminder.mastery_percentage}%</span>
+                <AnimatePresence>
+                    {reminders.map((reminder, idx) => (
+                        <motion.div
+                            key={reminder.topic}
+                            layout
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            transition={{ delay: idx * 0.1 }}
+                            className={`${styles.reminderCard} ${styles[reminder.risk_level]}`}
+                        >
+                            <div className={styles.reminderHeader}>
+                                <h3 className={styles.reminderTopic}>{reminder.topic}</h3>
+                                <span className={styles.riskBadge}>
+                                    {reminder.risk_level.toUpperCase()} PRIORITY
+                                </span>
                             </div>
-                            <div className={styles.stat}>
-                                <span className={styles.statLabel}>Days Since Revision</span>
-                                <span className={styles.statValue}>{reminder.days_since_revision}</span>
+
+                            <div className={styles.reminderStats}>
+                                <div className={styles.stat}>
+                                    <span className={styles.statLabel}>Mastery</span>
+                                    <span className={styles.statValue}>{reminder.mastery_percentage}%</span>
+                                </div>
+                                <div className={styles.stat}>
+                                    <span className={styles.statLabel}>Days Since Revision</span>
+                                    <span className={styles.statValue}>{reminder.days_since_revision}</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <p className={styles.reminderMessage}>{reminder.message}</p>
+                            <p className={styles.reminderMessage}>{reminder.message}</p>
 
-                        <div className={styles.actions}>
-                            <button className={styles.reviseButton} onClick={() => markAsRevised(reminder.topic)}>
-                                ✓ Mark as Revised
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                            <div className={styles.actions}>
+                                <button className={styles.reviseButton} onClick={() => markAsRevised(reminder.topic)}>
+                                    ✓ Mark as Revised
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
             </div>
         </div>
     );
