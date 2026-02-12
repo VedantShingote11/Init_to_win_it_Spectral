@@ -1,11 +1,28 @@
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 import styles from '../styles/ProjectList.module.css';
 import { projectsAPI } from '../utils/api';
+
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
+const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+};
 
 export default function ProjectList({ projects, onRefresh }) {
     const router = useRouter();
 
-    const handleDelete = async (id, title) => {
+    const handleDelete = async (id, title, e) => {
+        e.stopPropagation();
         if (!confirm(`Are you sure you want to delete "${title}"? This will delete all associated data.`)) {
             return;
         }
@@ -21,18 +38,34 @@ export default function ProjectList({ projects, onRefresh }) {
 
     if (projects.length === 0) {
         return (
-            <div className={styles.empty}>
+            <motion.div
+                className={styles.empty}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+            >
                 <div className={styles.emptyIcon}>📚</div>
                 <h2>No Projects Yet</h2>
                 <p>Create your first project to start learning!</p>
-            </div>
+            </motion.div>
         );
     }
 
     return (
-        <div className={styles.grid}>
+        <motion.div
+            className={styles.grid}
+            variants={container}
+            initial="hidden"
+            animate="show"
+        >
             {projects.map(project => (
-                <div key={project.id} className={styles.card}>
+                <motion.div
+                    key={project.id}
+                    className={styles.card}
+                    variants={item}
+                    whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                    onClick={() => router.push(`/projects/${project.id}`)}
+                >
                     <div className={styles.cardHeader}>
                         <h3 className={styles.cardTitle}>{project.title}</h3>
                         <div className={styles.masteryBadge}>
@@ -75,19 +108,22 @@ export default function ProjectList({ projects, onRefresh }) {
                     <div className={styles.cardActions}>
                         <button
                             className={styles.openButton}
-                            onClick={() => router.push(`/projects/${project.id}`)}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                router.push(`/projects/${project.id}`);
+                            }}
                         >
                             Open Project
                         </button>
                         <button
                             className={styles.deleteButton}
-                            onClick={() => handleDelete(project.id, project.title)}
+                            onClick={(e) => handleDelete(project.id, project.title, e)}
                         >
                             Delete
                         </button>
                     </div>
-                </div>
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
     );
 }

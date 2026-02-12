@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ChatInterface from '../../components/ChatInterface';
 import NotesViewer from '../../components/NotesViewer';
 import PerformanceDashboard from '../../components/PerformanceDashboard';
@@ -37,7 +38,16 @@ export default function ProjectPage() {
     };
 
     if (loading) {
-        return <div className={styles.loading}>Loading project...</div>;
+        return (
+            <div className={styles.loading}>
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    className={styles.spinner}
+                />
+                Loading project...
+            </div>
+        );
     }
 
     if (!project) {
@@ -57,8 +67,8 @@ export default function ProjectPage() {
         <div className={styles.container}>
             <header className={styles.header}>
                 <div className={styles.headerTop}>
-                    <button className={styles.backButton} onClick={() => router.push('/')}>
-                        ← Back
+                    <button className={styles.backButton} onClick={() => router.push('/dashboard')}>
+                        ← Back to Dashboard
                     </button>
                     <div className={styles.projectInfo}>
                         <h1 className={styles.title}>{project.project.title}</h1>
@@ -79,30 +89,47 @@ export default function ProjectPage() {
                         >
                             <span className={styles.tabIcon}>{tab.icon}</span>
                             <span className={styles.tabLabel}>{tab.label}</span>
+                            {activeTab === tab.id && (
+                                <motion.div
+                                    className={styles.activeUnderline}
+                                    layoutId="activeTab"
+                                />
+                            )}
                         </button>
                     ))}
                 </nav>
             </header>
 
             <main className={styles.main}>
-                {activeTab === 'upload' && (
-                    <ResourceUploader projectId={id} resources={project.resources} onUpdate={loadProject} />
-                )}
-                {activeTab === 'chat' && (
-                    <ChatInterface projectId={id} />
-                )}
-                {activeTab === 'notes' && (
-                    <NotesViewer projectId={id} />
-                )}
-                {activeTab === 'quiz' && (
-                    <QuizInterface projectId={id} activeSessionId={project.active_quiz_session} />
-                )}
-                {activeTab === 'performance' && (
-                    <PerformanceDashboard projectId={id} topicMastery={project.topic_mastery} />
-                )}
-                {activeTab === 'reminders' && (
-                    <ReminderPanel projectId={id} />
-                )}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeTab}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className={styles.contentWrapper}
+                    >
+                        {activeTab === 'upload' && (
+                            <ResourceUploader projectId={id} resources={project.resources} onUpdate={loadProject} />
+                        )}
+                        {activeTab === 'chat' && (
+                            <ChatInterface projectId={id} />
+                        )}
+                        {activeTab === 'notes' && (
+                            <NotesViewer projectId={id} />
+                        )}
+                        {activeTab === 'quiz' && (
+                            <QuizInterface projectId={id} activeSessionId={project.active_quiz_session} />
+                        )}
+                        {activeTab === 'performance' && (
+                            <PerformanceDashboard projectId={id} topicMastery={project.topic_mastery} />
+                        )}
+                        {activeTab === 'reminders' && (
+                            <ReminderPanel projectId={id} />
+                        )}
+                    </motion.div>
+                </AnimatePresence>
             </main>
         </div>
     );

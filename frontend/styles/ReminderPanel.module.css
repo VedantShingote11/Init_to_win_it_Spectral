@@ -1,12 +1,14 @@
 .container {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 2rem;
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1e293b;
     margin-bottom: 0.5rem;
@@ -14,7 +16,7 @@
 
 .subtitle {
     color: #64748b;
-    margin-bottom: 2rem;
+    font-size: 1rem;
 }
 
 .reminderList {
@@ -25,50 +27,71 @@
 
 .reminderCard {
     padding: 1.5rem;
-    border-radius: 12px;
-    border-left: 4px solid;
+    border-radius: 16px;
+    border-left: 6px solid;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
 }
 
 .reminderCard.high {
-    background: #fee2e2;
-    border-color: #dc2626;
+    background: #fffafa;
+    border-left-color: #dc2626;
 }
 
 .reminderCard.medium {
-    background: #fef3c7;
-    border-color: #f59e0b;
+    background: #fffdf5;
+    border-left-color: #f59e0b;
 }
 
 .reminderCard.low {
-    background: #dbeafe;
-    border-color: #3b82f6;
+    background: #f8fafc;
+    border-left-color: #3b82f6;
 }
 
 .reminderHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .reminderTopic {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #0f172a;
+    margin: 0;
 }
 
 .riskBadge {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.875rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
     font-weight: 700;
-    background: rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.05em;
+}
+
+.high .riskBadge {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.medium .riskBadge {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.low .riskBadge {
+    background: #dbeafe;
+    color: #1d4ed8;
 }
 
 .reminderStats {
     display: flex;
-    gap: 2rem;
-    margin-bottom: 1rem;
+    gap: 3rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .stat {
@@ -78,21 +101,24 @@
 }
 
 .statLabel {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: #64748b;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .statValue {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1e293b;
 }
 
 .reminderMessage {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     line-height: 1.6;
-    color: #1e293b;
+    color: #334155;
+    font-size: 1rem;
 }
 
 .actions {
@@ -101,16 +127,21 @@
 }
 
 .reviseButton {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: white;
+    color: #1e293b;
     padding: 0.75rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
-    transition: transform 0.2s;
+    border: 2px solid #e2e8f0;
+    transition: all 0.2s;
+    cursor: pointer;
+    font-size: 0.95rem;
 }
 
 .reviseButton:hover {
-    transform: translateY(-2px);
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
 }
 
 .loading {
@@ -123,9 +154,13 @@
     text-align: center;
     padding: 4rem 2rem;
     color: #64748b;
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
 }
 
 .emptyIcon {
     font-size: 4rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
 }

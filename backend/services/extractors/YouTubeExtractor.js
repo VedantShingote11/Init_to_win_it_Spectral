@@ -1,6 +1,10 @@
-const { YoutubeTranscript } = require('youtube-transcript');
+const axios = require('axios');
 
 class YouTubeExtractor {
+    constructor() {
+        this.pythonServiceUrl = process.env.PYTHON_SERVICE_URL || 'http://localhost:5001';
+    }
+
     async extract(url) {
         try {
             // Extract video ID from URL
@@ -11,58 +15,60 @@ class YouTubeExtractor {
             }
 
             console.log(`📺 Attempting to fetch transcript for video: ${videoId}`);
+            console.log(`🐍 Calling Python service at: ${this.pythonServiceUrl}`);
 
-            // Use youtube-transcript library (doesn't require OAuth)
-            let transcript;
-            try {
-                transcript = await YoutubeTranscript.fetchTranscript(videoId);
-            } catch (error) {
-                console.log('⚠️ Default transcript fetch failed, trying with language options...');
-                try {
-                    // Try with explicit English
-                    transcript = await YoutubeTranscript.fetchTranscript(videoId, {
-                        lang: 'en'
-                    });
-                } catch (secondError) {
-                    console.error('❌ Transcript fetch failed:', error.message);
-                    throw error;
-                }
+            // Call Python microservice
+            const response = await axios.get(`${this.pythonServiceUrl}/transcript`, {
+                params: { video_id: videoId },
+                timeout: 30000 // 30 second timeout
+            });
+
+            // Check if request was successful
+            if (!response.data || !response.data.success) {
+                const errorMsg = response.data?.error || 'Invalid response from transcript service';
+                throw new Error(errorMsg);
             }
 
-            if (!transcript || transcript.length === 0) {
-                throw new Error('No transcript available for this video');
-            }
-
-            console.log(`✅ Successfully fetched ${transcript.length} transcript segments`);
-
-            // Combine transcript segments
-            const text = transcript.map(segment => segment.text).join(' ');
-
-            // Store timestamps for reference
-            const timestamps = transcript.map(segment => ({
-                time: segment.offset,
-                text: segment.text,
-            }));
+            console.log(`✅ Successfully fetched transcript (${response.data.segment_count} segments)`);
+            console.log(`   Language: ${response.data.language} (${response.data.language_code})`);
+            console.log(`   Auto-generated: ${response.data.is_generated}`);
 
             return {
-                text: text.trim(),
+                text: response.data.transcript.trim(),
                 metadata: {
-                    videoId,
+                    videoId: response.data.video_id,
                     url,
-                    timestamps,
-                    duration: transcript[transcript.length - 1]?.offset || 0,
-                    segmentCount: transcript.length,
+                    language: response.data.language,
+                    languageCode: response.data.language_code,
+                    isGenerated: response.data.is_generated,
+                    timestamps: response.data.timestamps || [],
+                    segmentCount: response.data.segment_count || 0,
                 },
             };
         } catch (error) {
             console.error('❌ Error extracting YouTube transcript:', error);
-            console.error('Error details:', error.message);
 
-            // Provide helpful error messages
-            if (error.message.includes('Could not') ||
-                error.message.includes('Transcript') ||
-                error.message.includes('No transcript available')) {
-                throw new Error('This video does not have publicly accessible transcripts. Please try a video with captions/subtitles enabled.');
+            // Check if it's a service connection error
+            if (error.code === 'ECONNREFUSED') {
+                throw new Error('YouTube transcript service is not running. Please start the Python service on port 5001.');
+            }
+
+            // Check if it's a timeout
+            if (error.code === 'ECONNABORTED') {
+                throw new Error('Transcript fetch timed out. The video might be too long or the service is slow.');
+            }
+
+            // Handle API errors from Python service
+            if (error.response && error.response.data && error.response.data.error) {
+                const apiError = error.response.data.error;
+
+                if (apiError.includes('Could not retrieve') ||
+                    apiError.includes('Transcript') ||
+                    apiError.includes('not available')) {
+                    throw new Error('This video does not have publicly accessible transcripts. Please try a video with captions/subtitles enabled.');
+                }
+
+                throw new Error(`YouTube extraction failed: ${apiError}`);
             }
 
             throw new Error(`YouTube extraction failed: ${error.message}`);
@@ -88,4 +94,3 @@ class YouTubeExtractor {
 }
 
 module.exports = new YouTubeExtractor();
-

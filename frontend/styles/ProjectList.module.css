@@ -1,23 +1,31 @@
-/* Inherits from Components.module.css base styles */
-@import './Components.module.css';
-
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding-bottom: 4rem;
 }
 
 .card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
 }
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
 }
 
 .cardHeader {
@@ -27,134 +35,109 @@
     margin-bottom: 1rem;
 }
 
-.cardTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1e293b;
-    flex: 1;
-}
-
-.masteryBadge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.125rem;
-}
-
-.cardDescription {
-    color: #64748b;
+.iconWrapper {
+    width: 48px;
+    height: 48px;
+    background: #eff6ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #2563eb;
     margin-bottom: 1rem;
-    line-height: 1.5;
 }
 
-.cardStats {
+.title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.description {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.stats {
     display: flex;
     gap: 1.5rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background: #f8fafc;
-    border-radius: 8px;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
 }
 
 .stat {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 0.25rem;
 }
 
-.statIcon {
-    font-size: 1.5rem;
+.statLabel {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .statValue {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #334155;
 }
 
-.statLabel {
-    font-size: 0.875rem;
-    color: #64748b;
+.progressBar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: #e2e8f0;
+    width: 100%;
 }
 
-.weakTopics {
-    margin-bottom: 1rem;
+.progressFill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 0 2px 2px 0;
 }
 
-.weakLabel {
-    font-size: 0.875rem;
-    color: #64748b;
-    font-weight: 600;
-}
-
-.topicTags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-}
-
-.topicTag {
-    padding: 0.25rem 0.75rem;
-    background: #fee2e2;
-    color: #991b1b;
-    border-radius: 6px;
-    font-size: 0.875rem;
-}
-
-.revisionAlert {
-    background: #fef3c7;
-    color: #92400e;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.cardActions {
-    display: flex;
-    gap: 0.75rem;
-}
-
-.openButton {
-    flex: 1;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: transform 0.2s;
-}
-
-.openButton:hover {
-    transform: translateY(-2px);
-}
-
-.deleteButton {
-    background: #fee2e2;
-    color: #991b1b;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.deleteButton:hover {
-    background: #fecaca;
-}
-
-.empty {
+.emptyState {
     text-align: center;
     padding: 4rem 2rem;
+    background: white;
+    border-radius: 16px;
+    border: 2px dashed #cbd5e1;
     color: #64748b;
 }
 
 .emptyIcon {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.emptyTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
 }
